@@ -153,7 +153,7 @@ def main():  # pragma: no cover
     check = Check(CheckLayer2Link(args.ip, args.maxwait, args.count),
                   ScalarContext('arp', None, '1:1'),
                   AuditSummary())
-    check.main(args.verbose, timeout=0)
+    check.main(args.verbose)
 
 
 if __name__ == '__main__':  # pragma: no cover
