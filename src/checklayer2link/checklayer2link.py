@@ -75,7 +75,7 @@ class CheckLayer2Link(Resource):
 
     def _find_ip_arp_table(self, system=system):
         """Runs 'bgpctl show'."""
-        _cmd = "arp -na"
+        _cmd = "/usr/sbin/arp -na"
         _log.debug("running '%s'", _cmd)
         result = 0
         stdout, stderr = _popen(_cmd.split())
