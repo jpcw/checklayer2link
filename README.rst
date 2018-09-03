@@ -92,7 +92,7 @@ Command definition ::
     
     define command{
         command_name    check_ssh_layer2link
-        command_line    $USER1$/check_by_ssh -H $HOSTADDRESS$ -i /var/spool/icinga/.ssh/id_rsa -C "sudo /usr/local/bin/check_layer2link --ignore-list $ARG1$"
+        command_line    $USER1$/check_by_ssh -H $ARG1$ -i /var/spool/icinga/.ssh/id_rsa -C "sudo /usr/local/bin/check_layer2link $HOSTADDRESS$"
     }
 
 the service itself ::
@@ -101,57 +101,9 @@ the service itself ::
         use                     my-service
         host_name               hostname
         service_description     layer2link
-        check_command           check_ssh_layer2link!
+        check_command           check_ssh_layer2link!aa.bb.cc.dd
     }
 
-icinga2 command ::
-    
-	object CheckCommand "checklayer2link" {
-        import "plugin-check-command"
-        import "ipv4-or-ipv6"
-        command = [ PluginDir + "/check_by_ssh" ]
-        arguments = {
-            "-H" = "$checklayer2link_address$"
-            "-i" = "$ssh_id$"
-            "-p" = "$ssh_port$"
-            "-C" = "$ssh_command$"
-    	    }
-        vars.checklayer2link_address = "$check_address$"
-        vars.ssh_id = "/var/spool/icinga/.ssh/id_rsa"
-        vars.ssh_port = "$vars.ssh_port$"
-        vars.ssh_command = "sudo /usr/local/bin/check_layer2link"
-	}
-
-icinga2 service ::
-	
-	apply Service "checklayer2link" {
-  	    check_command = "checklayer2link"
-  	    assign where host.name == "hostname"
-	}
-
-**NRPE**
-
-add this line to /usr/local/etc/nrpe.cfg ::
-     
-    ...
-    command[check_layer2link]=/usr/local/bin/check_layer2link
-    ...
-
-nagios command definition ::
-    
-    define command{
-        command_name    check_nrpe_layer2link
-        command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_layer2link -a "--ignore-list $ARGS1"
-    }
-
-the service itself ::
-    
-    define service{
-        use                     my-service
-        host_name               hostname
-        service_description     layer2link
-        check_command           check_nrpe_layer2link!
-    }   
 
 testing
 ---------
