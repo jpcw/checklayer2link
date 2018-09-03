@@ -23,9 +23,9 @@ Check *Nix Layer2Link probe Nagios|Icinga|shinken|etc plugin.
     :target: https://pypi.python.org/pypi/checklayer2link/
 
 .. image:: https://img.shields.io/coveralls/jpcw/checklayer2link.svg
-    :target: https://coveralls.io/r/jpcw/checklayer2link
+    :target: https://coveralls.io/r/jpcw/check_layer2link
 
-.. image:: https://api.travis-ci.org/jpcw/checklayer2link.svg?branch=master
+.. image:: https://api.travis-ci.org/jpcw/check_layer2link.svg?branch=master
     :target: http://travis-ci.org/jpcw/checklayer2link
 
 
